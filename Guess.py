@@ -1,6 +1,7 @@
 import math
 import random
 
+# A guessing game, where you have to guess the number, in a range, the computer thinks, and it returns your score in the end.
 def guess():
     n1 = int(input("Lower Limit : "))
     n2 = int(input("Upper Limit : "))
