@@ -19,6 +19,6 @@ def cricket(n):
     while i <= n and array.count(5) < 10:
         array.append(dice())
         i += 1
-    return array, sum_array(array) - 5 * array.count(5)
+    return str(sum_array(array) - 5 * array.count(5)) + "/" + str(array.count(5)) + " in " + str(len(array)) + " balls."
         
     
