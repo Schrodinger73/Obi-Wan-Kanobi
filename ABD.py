@@ -1,11 +1,11 @@
 import math
 import random
 import matplotlib.pyplot as mpl
-
+a = [0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 6, 6, 5]
 n = int(input("Balls : "))
 array = []
 for i in range(0, n):
-    array.append(random.randint(1, 6))
+    array.append(a[random.randint(0, 26)])
 
 def sum_array(a):
     sum = 0
@@ -37,6 +37,7 @@ def cut_array(a, j, n): #(array, element, number)
     if count >= n or i >= len(a):
         return cut
 
+
 def ar(a, n, k):
     ar = []
     if a.count(n) < k:
@@ -64,7 +65,7 @@ sum = 0
 for i in range(0, len(array1)):
     sum += ar(array, 5, 10)[i]
     runs.append(sum)
-    
+
 print(cricket())
 
 mpl.plot(balls, runs)
