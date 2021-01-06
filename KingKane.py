@@ -1,17 +1,37 @@
 import math
 import matplotlib.pyplot as plt
 import random
-a = [0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 6, 6, 5]
-P1 = input("Player1(Blue) : ")
-P2 = input("Player2(Orange) : ")
+a = [0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 5, 6]
+f = input("Dice based(D) or Probability based(P) : ")
+#P1 = input("Player1(Blue) : ")
+#P2 = input("Player2(Orange) : ")
+P1 = "1"
+P2 = "2"
 n = int(input("Balls : "))
 array2 = []
 array = []
+array5 = []
+array6 = []
+array7 = []
+array8 = []
 for i in range(0, n):
-    array.append(a[random.randint(0, 26)])
+    array5.append(a[random.randint(0, len(a) - 1)])
 for i in range(0, n):
-    array2.append(a[random.randint(0, 26)])
-
+    array6.append(a[random.randint(0, len(a) - 1)])
+for i in range(0, n):
+    array7.append(random.randint(1, 6))
+for i in range(0, n):
+    array8.append(random.randint(1, 6))
+if f == "D":
+    array = array7
+    array2 = array8
+    k1 = array7.count(5)
+    k2 = array8.count(5)
+if f == "P":
+    array = array5
+    array2 = array6
+    k1 = array5.count(5)
+    k2 = array6.count(5)
 def sum_array(a):
     sum = 0
     for i in range(0, len(a)):
@@ -21,7 +41,7 @@ S1 = []
 def cricket1():
     if array.count(5) < 10:
         S1.append(sum_array(array) - 5 * array.count(5))
-        print("Final Score of " + P1 + "- " + str(S1[0]) + " / " + str(array.count(5)))
+        print("Final Score of " + P1 + " - " + str(S1[0]) + " / " + str(k1))
     if array.count(5) >= 10:
         S1.append(sum_array(cut_array(array, 5, 10)) - 50)
         cut_array(array, 5, 10)
@@ -30,7 +50,7 @@ S2 = []
 def cricket2():
     if array2.count(5) < 10:
         S2.append(sum_array(array2) - 5 * array2.count(5))
-        print("Final Score of " + P2 + " - " + str(S2[0]) + " / " + str(array2.count(5)))
+        print("Final Score of " + P2 + " - " + str(S2[0]) + " / " + str(k2))
     if array2.count(5) >= 10:
         S2.append(sum_array(cut_array(array2, 5, 10)) - 50)
         cut_array(array2, 5, 10)
