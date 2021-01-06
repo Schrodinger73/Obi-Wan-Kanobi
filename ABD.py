@@ -2,10 +2,22 @@ import math
 import random
 import matplotlib.pyplot as mpl
 a = [0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 6, 6, 5]
+f = input("Dice based(D) or Probability based(P) : ")
 n = int(input("Balls : "))
 array = []
+array1 = []
+array2 = []
 for i in range(0, n):
-    array.append(a[random.randint(0, 26)])
+    array1.append(a[random.randint(0, 26)])
+for i in range(0, n):
+    array2.append(random.randint(1, 6))
+if f == "D":
+    array = array2
+    k = array2.count(5)
+if f == "P":
+    array = array1
+    k = array1.count(5)
+
 
 def sum_array(a):
     sum = 0
@@ -16,10 +28,11 @@ def sum_array(a):
 
 def cricket():
     if array.count(5) < 10:
-        return "Final Score - " + str(sum_array(array) - 5 * array.count(5)) + " / " + str(array.count(5))
+        print("Final Score - " + str(sum_array(array) - 5 * array.count(5)) + " / " + str(k))
     if array.count(5) >= 10:
         cut_array(array, 5, 10)
-        return "Final Score - " + str(sum_array(cut_array(array, 5, 10)) - 50) + " / 10"
+        print("Final Score - " + str(sum_array(cut_array(array, 5, 10)) - 50) + " / 10")
+    print(array)
 
 
 def cut_array(a, j, n): #(array, element, number)
@@ -37,7 +50,7 @@ def cut_array(a, j, n): #(array, element, number)
     if count >= n or i >= len(a):
         return cut
 
-
+array1 = array.copy()
 def ar(a, n, k):
     ar = []
     if a.count(n) < k:
@@ -52,10 +65,8 @@ def ar(a, n, k):
                 ar[i] = 0
     return ar
 
-array1 = []
+array1 = ar(array1, 5, 10)
 
-for i in range(0, len((ar(array, 5, 10)))):
-    array1.append(ar(array, 5, 10)[i])
 
 balls = [0]
 for i in range(1, len(array1) + 1):
@@ -66,7 +77,7 @@ for i in range(0, len(array1)):
     sum += ar(array, 5, 10)[i]
     runs.append(sum)
 
-print(cricket())
+(cricket())
 
 mpl.plot(balls, runs)
 mpl.xlabel("Balls")
