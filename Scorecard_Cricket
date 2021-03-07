@@ -1,0 +1,189 @@
+import math
+import random
+
+a = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 4, 4, 6, 5]
+
+def sum_array(a):
+    sum = 0
+    for i in range(0, len(a)):
+        sum += a[i]
+    return sum
+
+
+def names():
+    n1 = input("Name 1 : ")
+    n2 = input("Name 2 : ")
+    array = [n1, n2]
+    return array
+
+names = names()
+#Names = names
+def team():
+    T1 = input("Team 1 : ")
+    T2 = input("Team 2 : ")
+    array = [T1, T2]
+    return array
+
+def Team_array():
+    T1 = team()[0].split(",")
+    T2 = team()[1].split(",")
+    return [T1, T2]
+
+teams = Team_array()
+#Teams = teams
+def lineup():
+    print("The batting lineup is out, and...")
+    print(names[0] + " - " + str(teams[0]))
+    print(names[1] + " - " + str(teams[1]))
+
+def balls():
+    n = int(input("Number of balls : "))
+    return n
+
+balls = balls()
+
+def wickets():
+    n = int(input("No of wickets : "))
+    return n
+
+wickets = wickets()
+
+def balls_array(b, w):    #b is balls, w is wickets
+    array = []
+    while array.count(5) < w and len(array) < b:
+        array.append(a[random.randint(0, len(a) - 1)])
+        if array.count(5) == w or len(array) == b:
+            break
+    return array
+
+array = balls_array(balls, wickets)
+
+def total(a):
+    total = sum_array(a) - 5*a.count(5)
+    return total
+
+def indexes(a, n):
+    ar = []
+    for i in range(0, len(a)):
+        if a[i] == n:
+            ar.append(i)
+    return ar
+
+
+b = [5, 1, 2, 3, 5, 6, 5, 3, 4, 5, 5]
+def split(a, n):
+    ar = []
+    ar1 = indexes(a, n)
+    if len(ar1) == 0:
+        ar = a
+    elif len(ar1) > 0:
+        if a[0] != n:
+            ar.append(a[:ar1[0]])
+            for i in range(0, len(ar1) - 1):
+                ar.append(a[ar1[i] + 1 : ar1[i + 1]])
+        if a[0] == n:
+            ar.append([])
+            for i in range(0, len(ar1) - 1):
+                ar.append(a[ar1[i] + 1 : ar1[i + 1]])
+        if a[-1] != n:
+            ar.append(a[ar1[-1] + 1 : len(a) + 1])
+    return ar
+
+def array_score(a, w):
+    ar = []
+    spl = split(a, 5)
+    if a.count(5) == w:
+        for i in range(0, w):
+            ar.append(str(sum_array(spl[i])) + "(" + str(len(spl[i]) + 1) + ")")
+    if 0 < int(a.count(5)) < int(w):
+        for i in range(0, a.count(5)):
+            ar.append(str(sum_array(spl[i])) + "(" + str(len(spl[i]) + 1) + ")")
+        ar.append(str(sum_array(a[indexes(a, 5)[-1] + 1:len(a)])) + "(" + str(len(a[indexes(a, 5)[-1] + 1:len(a)])) + ")")
+        for i in range(0, w - a.count(5) - 1):
+            ar.append('-')
+    if a.count(5) == 0:
+        ar.append(str(sum_array(a)) + "(" + str(len(a)) + ")")
+        for i in range(0, w - 1):
+            ar.append('-')
+    return ar
+
+def batting_second(a, n):
+    ar = []
+    if total(a) <= n:
+        ar = a
+    if total(a) > n:
+        for i in range(0, len(a)):
+            if total(a[:i]) < n:
+                ar = a[:i + 1]
+    return ar
+
+def toss():
+    d = {}
+    n1 = input("Heads or Tails (H/T) : ")
+    C = ["H", "T"]
+    n2 = random.randint(0, 1)
+    b = ["Bat", "Bowl"]
+    if n1 == C[n2]:
+        n3 = input(names[0] + " wins the toss and chooses to : ")
+        d[names[0]] = n3
+        d[names[1]] = b[1 - b.index(n3)]
+    else:
+        n4 = input(names[1] + " wins the toss and chooses to : ")
+        d[names[1]] = n4
+        d[names[0]] = b[1 - b.index(n4)]
+    ar = []
+    T = names
+    for i in range(0, 2):
+        if d[T[i]] == "Bat":
+            ar.append(T[i])
+            ar.append(T[1 - i])
+    return ar
+
+
+
+def scorecard(a1, a2, w, b):   # Team1Name, Team2Name, Team1Team2Lineup, Ball_Array, Wickets, Balls
+    Names = names
+    Teams = teams
+    D = dict(zip(Names, Teams))
+    a2 = batting_second(a2, total(a1))
+    Bat_Score_1 = array_score(a1, w)
+    Bat_Score_2 = array_score(a2, w)
+# a1 is ball_array for Team 1
+    lineup()
+    T = toss()
+    if T[0] == Names[0]:
+        D = D
+    if T[0] == Names[1]:
+        Names = Names[::-1]
+        Teams = Teams[::-1]
+        D = dict(zip(Names, Teams))
+
+    print("")
+    print("--------------------------------")
+    print(T[0])
+    print("--------------------------------")
+    for i in range(0, w):
+        print(Teams[0][i] + "            " + str(Bat_Score_1[i]))
+    print("")
+    print(Names[0] + " score = " + str(total(a1)) + "/" + str(a1.count(5)) + " in " + str(len(a1)) + " balls")
+    print("")
+    print("--------------------------------")
+    print(Names[1])
+    print("--------------------------------")
+    for i in range(0, w):
+        print(Teams[1][i] + "            " + str(Bat_Score_2[i]))
+    print("")
+    print(Names[1] + " score = " + str(total(a2)) + "/" + str(a2.count(5)) + " in " + str(len(a2)) + " balls")
+    if total(a1) > total(a2):
+        print("")
+        print(str(Names[0]) + " wins!!!")
+    if total(a1) < total(a2):
+        print("")
+        print(str(Names[1]) + " wins!!!")
+    else:
+        print("It's going to a super over!!!")
+
+
+
+
+(scorecard(balls_array(balls, wickets), balls_array(balls, wickets), wickets, balls))
