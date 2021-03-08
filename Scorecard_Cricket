@@ -1,20 +1,68 @@
 import math
 import random
 # 0, 1, 2, 3, 4, 6, 5
-a = []
-for i in range(0, 50):
-    a.append(0)
-for i in range(0, 19):
-    a.append(1)
+Tests = []
+for i in range(0, 96):
+    Tests.append(0)
+for i in range(0, 30):
+    Tests.append(1)
 for i in range(0, 16):
-    a.append(2)
+    Tests.append(2)
 for i in range(0, 5):
-    a.append(3)
+    Tests.append(3)
 for i in range(0, 7):
-    a.append(4)
+    Tests.append(4)
 for i in range(0, 5):
-    a.append(5)
-a.append(6)
+    Tests.append(5)
+Tests.append(6)
+
+ODI = []
+for i in range(0, 60):
+    ODI.append(0)
+for i in range(0, 30):
+    ODI.append(1)
+for i in range(0, 16):
+    ODI.append(2)
+for i in range(0, 5):
+    ODI.append(3)
+for i in range(0, 8):
+    ODI.append(4)
+for i in range(0, 4):
+    ODI.append(5)
+for i in range(0, 4):
+    ODI.append(6)
+
+t20 = []
+for i in range(0, 20):
+    t20.append(0)
+for i in range(0, 25):
+    t20.append(1)
+for i in range(0, 15):
+    t20.append(2)
+for i in range(0, 4):
+    t20.append(3)
+for i in range(0, 7):
+    t20.append(4)
+for i in range(0, 5):
+    t20.append(5)
+for i in range(0, 5):
+    t20.append(6)
+
+t10 = []
+for i in range(0, 15):
+    t10.append(0)
+for i in range(0, 20):
+    t10.append(1)
+for i in range(0, 15):
+    t10.append(2)
+for i in range(0, 5):
+    t10.append(3)
+for i in range(0, 8):
+    t10.append(4)
+for i in range(0, 5):
+    t10.append(5)
+for i in range(0, 5):
+    t10.append(6)
 
 def sum_array(a):
     sum = 0
@@ -74,7 +122,7 @@ def wickets(a):
 
 wicket = wickets(teams[0])
 
-def balls_array(b, w):    #b is balls, w is wickets
+def balls_array(b, w, a):    #b is balls, w is wickets
     array = []
     while array.count(5) < w and len(array) < b:
         array.append(a[random.randint(0, len(a) - 1)])
@@ -150,7 +198,7 @@ def toss():
         n3 = input(names[0] + " wins the toss and chooses to : ")
         d[names[0]] = n3
         d[names[1]] = b[1 - b.index(n3)]
-    else:
+    if n1 != C[n2]:
         n4 = input(names[1] + " wins the toss and chooses to : ")
         d[names[1]] = n4
         d[names[0]] = b[1 - b.index(n4)]
@@ -162,7 +210,7 @@ def toss():
             ar.append(T[1 - i])
     return ar
 
-def Test(w):
+def Test(a, w):
     w1 = 0
     ar = []
     while w1 < w:
@@ -178,16 +226,27 @@ def Test(w):
 def scorecard():
     w = wicket
     U = type()
+    a = []
+    if U == "Test":
+        a = Tests
+    if U == "ODI":
+        a = ODI
+    if U == "T20":
+        a = t20
+    if U == "T10":
+        a = t10
+    if U == "Custom":
+        a = ODI
     b = 0
     a1 = []
     a2 = []
     if U != "Test":
         b = balls(U)
-        a1 = balls_array(b, w)
-        a2 = balls_array(b, w)
+        a1 = balls_array(b, w, a)
+        a2 = balls_array(b, w, a)
     if U == "Test":
-        a1 = Test(w)
-        a2 = Test(w)
+        a1 = Test(a, w)
+        a2 = Test(a, w)
     Names = names
     Teams = teams
     D = dict(zip(Names, Teams))
@@ -205,19 +264,21 @@ def scorecard():
         D = dict(zip(Names, Teams))
 
     print("")
-    print("--------------------------------")
+    print("-----------------------------------------")
     print(T[0])
-    print("--------------------------------")
+    print("-----------------------------------------")
     for i in range(0, w):
-        print(Teams[0][i] + (20 - len(Teams[0][i])) * " " + str(Bat_Score_1[i]))
+        print(Teams[0][i] + (30 - len(Teams[0][i])) * " " + str(Bat_Score_1[i]))
+    print("-----------------------------------------")
     print("")
     print(Names[0] + " score = " + str(total(a1)) + "/" + str(a1.count(5)) + " in " + str(len(a1)) + " balls")
     print("")
-    print("--------------------------------")
+    print("-----------------------------------------")
     print(Names[1])
-    print("--------------------------------")
+    print("-----------------------------------------")
     for i in range(0, w):
-        print(Teams[1][i] + (20 - len(Teams[1][i])) * " " + str(Bat_Score_2[i]))
+        print(Teams[1][i] + (30 - len(Teams[1][i])) * " " + str(Bat_Score_2[i]))
+    print("-----------------------------------------")
     print("")
     print(Names[1] + " score = " + str(total(a2)) + "/" + str(a2.count(5)) + " in " + str(len(a2)) + " balls")
     if total(a1) > total(a2):
