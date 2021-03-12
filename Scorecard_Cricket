@@ -2,9 +2,9 @@ import math
 import random
 
 Tests = []
-for i in range(0, 96):
+for i in range(0, 250):
     Tests.append(0)
-for i in range(0, 30):
+for i in range(0, 35):
     Tests.append(1)
 for i in range(0, 16):
     Tests.append(2)
@@ -47,6 +47,7 @@ for i in range(0, 5):
     t20.append(5)
 for i in range(0, 5):
     t20.append(6)
+
 
 t10 = []
 for i in range(0, 15):
@@ -109,7 +110,7 @@ for i in range(0, 10):
     ODI_target.append(4)
 for i in range(0, 7):
     ODI_target.append(5)
-for i in range(0, 4):
+for i in range(0, 5):
     ODI_target.append(6)
 
 ODI_target_2 = []
@@ -134,20 +135,31 @@ def sum_array(a):
         sum += a[i]
     return sum
 
-NewZealand = "Martin Guptill,Glenn Phillips,Kane Williamson(c),Devon Conway,Jimmy Neesham,Kylie Jamieson,Michael Santner,Tim Southee,Ish Sodhi,Trent Boult"
-Australia = "Aaron Finch(c),David Warner,Josh Phillipe,Matthew Wade,Glenn Maxwell,Marcus Stoinis,Ashton Agar,Michael Starc,Adam Zampa,Kane Richardson"
+NewZealandT20 = "Martin Guptill,Glenn Phillips,Kane Williamson(c),Devon Conway,Jimmy Neesham,Kylie Jamieson,Michael Santner,Tim Southee,Ish Sodhi,Trent Boult"
+NewZealandODI = "Martin Guptill,Henry Nicholls,Kane Williamson(c),Ross Taylor,Tom Latham,Jimmy Neesham,Colin de Grandhomme,Matt Henry,Trent Boult,Lockie Ferguson"
+NewZealandTest = "Tom Latham,Tom Blundell,Kane Williamson(c),Ross Taylor,BJ Watling,Colin de Grandhomme,Tim Southee,Kylie Jamieson,Mitchell Santner,Trent Boult"
+AustraliaT20 = "Aaron Finch(c),David Warner,Josh Phillipe,Matthew Wade,Glenn Maxwell,Marcus Stoinis,Ashton Agar,Michael Starc,Adam Zampa,Kane Richardson"
+AustraliaODI = "Aaron Finch(c),David Warner,Steve Smith,Marnus Labuchagne,Glenn Maxwell,Marcus Stoinis,Alex Carey,Pat Cummins,Mitchell Starc,Adam Zampa,Josh Hazlewood"
+AustraliaTest = "Marcus Harris,David Warner,Marnus Labuchagne,Steve Smith,Travis Head,Matthew Wade,Tim Paine(c),Pat Cummins,Mitchell Starc,Nathan Lyon"
 India = "Rohit Sharma,KL Rahul,Virat Kohli(c),Shreyash Iyer,Rishabh Pant,Hardik Pandya,Navdeep Saini,Mohd Shami,Jaspreet Bumrah,Yuzi Chahal"
-England = "Jason Roy,Jonny Bairstow,Joe Root,Eoin Morgan(c),Jos Butler,Ben Stokes,Chris Woakes,Adil Rashid,Jofra Archer,Mark Wood"
-RCB = "Devdutt Padikkal,Josh Phillipe,Virat Kohli,ABD,Glenn Maxwell,Mohd Azharuddin,Daniel Sams,Navdeep Saini,Mohd Siraj,Yuzi Chahal"
+IndiaTest = "Rohit Sharma,Shubman Gill,Cheteshwar Pujara,Virat Kohli(c),Rishabh Pant,Washington Sundar,Ravi Ashwin,Axar Patel,Mohd Siraj,Jaspreet Bumrah"
+EnglandODI = "Jason Roy,Jonny Bairstow,Joe Root,Eoin Morgan(c),Jos Butler,Sir Ben Stokes,Chris Woakes,Adil Rashid,Jofra Archer,Mark Wood"
+EnglandT20 = "Jason Roy,Jos Butler,Dawid Malan,Jonny Bairstow,Eoin Morgan,Sir Ben Stokes,Chris Woakes,Adil Rashid,Jofra Archer,Mark Wood"
+EnglandTest = "Zack Crawley,Rory Burns,Joe Root,Ben Stokes,Jos Butler,Chris Woakes,Stuart Broad,Jofra Archer,Jack Leach,James Anderson"
+RCB = "Devdutt Padikkal,Finn Allen,Virat Kohli,ABD,Glenn Maxwell,Mohd Azharuddin,Daniel Sams,Navdeep Saini,Mohd Siraj,Yuzi Chahal"
 MI = "QDK,Rohit Sharma,SKY,Ishan Kishan,Hardik Pandya,Keiron Pollard,Arjun Tendulkar,Rahul Chahar,Jaspreet Bumrah,Trent Boult"
 print("Pre defined Teams - New Zealand, Australia, India, England, RCB, MI.")
-Teams = [NewZealand, Australia, India, England, RCB, MI]
-t = ["New Zealand", "Australia", "India", "England", "RCB", "MI"]
-Te = input("Pre defined or Custom?(P/C) : ")
+Teams = [NewZealandT20, NewZealandODI, NewZealandTest, AustraliaODI, AustraliaT20, AustraliaTest, India, India, IndiaTest, EnglandT20, EnglandODI, EnglandTest, RCB, MI]
+t = ["NZT20", "NZODI", "NZTEST", "AUSODI", "AUST20", "AUSTEST", "INDODI", "INDT20", "INDTEST", "ENGT20", "ENGODI", "ENGTEST", "RCB", "MI"]
+Te = input("Pre defined or Custom?(P/C) : ").upper()
+
+def is_series():
+    n = input("Series/Single : ")
+    return n.upper()
 
 def names():
-    n1 = input("Name 1 : ")
-    n2 = input("Name 2 : ")
+    n1 = input("Name 1 : ").upper()
+    n2 = input("Name 2 : ").upper()
     array = [n1, n2]
     return array
 
@@ -198,10 +210,10 @@ def lineup():
 
 def type():
     n = input("T10/T20/ODI/Test/Custom : ")
-    return n
+    return n.upper()
 
 def balls(t):
-    if t == "Custom":
+    if t == "CUSTOM":
         n = int(input("Number of balls : "))
         return n
     if t == "T10":
@@ -213,7 +225,6 @@ def balls(t):
     if t == "ODI":
         n = 300
         return n
-
 
 
 def wickets(a):
@@ -278,6 +289,46 @@ def array_score(a, w):
             ar.append('-')
     return ar
 
+def array_score_1(a, w):
+    ar = []
+    spl = split(a, 5)
+    if a.count(5) == w:
+        for i in range(0, w):
+            ar.append((str(sum_array(spl[i])),str(len(spl[i]) + 1) + ")"))
+    if 0 < int(a.count(5)) < int(w):
+        for i in range(0, a.count(5)):
+            ar.append((str(sum_array(spl[i])), str(len(spl[i]) + 1)))
+        ar.append((int(sum_array(a[indexes(a, 5)[-1] + 1:len(a)])), int(len(a[indexes(a, 5)[-1] + 1:len(a)]))))
+        for i in range(0, w - a.count(5) - 1):
+            ar.append(('-', '-'))
+    if a.count(5) == 0:
+        ar.append((int(sum_array(a)), int(len(a))))
+        for i in range(0, w - 1):
+            ar.append(('-', '-'))
+    return ar
+
+def replace(a, n1, n2): #n1 to be replaced
+    arr = a.copy()
+    f = indexes(a, n1)
+    for i in f:
+        ar[i] = n2
+    return arr
+
+def stats_array_score(a):
+    arr = array_score_1(a, wicket)
+    for i in range(0, a.count(('-', '-'))):
+        arr = replace(arr, ('-', '-'), (0, 0))
+    arr1 = []
+    arr2 = []
+    for i in range(0, len(arr)):
+        if arr[i] != ('-', '-'):
+            arr1.append(int(arr[i][0]))
+            arr2.append(arr[i][1])
+        if arr[i] == ('-', '-'):
+            arr1.append(0)
+            arr2.append(0)
+    return [arr1, arr2]
+
 def batting_second(a, n):
     ar = []
     if total(a) <= n:
@@ -293,21 +344,21 @@ def toss():
     n1 = input(str(names[0]) + "'s call : Heads or Tails (H/T) : ")
     C = ["H", "T"]
     n2 = random.randint(0, 1)
-    b = ["Bat", "Bowl"]
-    if n1 == C[n2]:
+    b = ["BAT", "BOWL"]
+    if n1.upper() == C[n2]:
         n3 = input(names[0] + " wins the toss and chooses to : ")
-        d[names[0]] = n3
-        d[names[1]] = b[1 - b.index(n3)]
-    if n1 != C[n2]:
+        d[names[0]] = n3.upper()
+        d[names[1]] = b[1 - b.index(n3.upper())]
+    if n1.upper() != C[n2]:
         n4 = input(names[1] + " wins the toss and chooses to : ")
-        d[names[1]] = n4
-        d[names[0]] = b[1 - b.index(n4)]
+        d[names[1]] = n4.upper()
+        d[names[0]] = b[1 - b.index(n4.upper())]
     ar = []
     T = names
-    if d[T[0]] == "Bat":
+    if d[T[0]] == "BAT":
         ar.append(T[0])
         ar.append(T[1])
-    if d[T[0]] == "Bowl":
+    if d[T[0]] == "BOWL":
         ar.append(T[1])
         ar.append(T[0])
     return ar
@@ -324,13 +375,22 @@ def Test(a, w):
             w1 += 0
     return ar
 
+def max_dict(d):
+    a = max(d.values())
+    v = ""
+    for i in d.keys():
+        if d[i] == a:
+            v = i
+    return v
 
-def scorecard():
+#U = type()
+d = {names[0] : 0, names[1] : 0}
+def scorecard(U, d):
+    type = U
     w = wicket
-    U = type()
     a3 = []
     a4 = []
-    if U == "Test":
+    if U == "TEST":
         a3 = Tests
     if U == "ODI":
         a3 = ODI
@@ -343,24 +403,24 @@ def scorecard():
     b = 0
     a1 = []
     a2 = []
-    if U != "Test" and U != "ODI" and U != "T20":
+    if U != "TEST" and U != "ODI" and U != "T20":
         b = balls(U)
         a1 = balls_array(b, w, a3)
         a2 = balls_array(b, w, a3)
-    if U == "Test":
+    if U == "TEST":
         a1 = Test(a3, w)
         a2 = Test(a3, w)
     if U == "ODI":
-        b = balls(U)
+        b = 300
         a1 = balls_array(b, w, a3)
         if total(a1) > 310:
             a2 = balls_array(b, w, ODI_target)
-        if total(a1) < 150:
+        if total(a1) < 200:
             a2 = balls_array(b, w, ODI_target_2)
         else:
             a2 = balls_array(b, w, a3)
     if U == "T20":
-        b = balls(U)
+        b = 120
         a1 = balls_array(b, w, t20)
         if total(a1) > 174:
             a2 = balls_array(b, w, t20_target)
@@ -375,12 +435,16 @@ def scorecard():
     Bat_Score_1 = array_score(a1, w)
     Bat_Score_2 = array_score(a2, w)
     T = toss()
+    D1 = {}
+    D2 = {}
     if T[0] == Names[0]:
         D = D
     if T[0] == Names[1]:
         Names = Names[::-1]
         Teams = Teams[::-1]
         D = dict(zip(Names, Teams))
+    D1 = dict(zip(Teams[0], stats_array_score(a1)[0]))
+    D2 = dict(zip(Teams[1], stats_array_score(a2)[0]))
 
     print("")
     print("-----------------------------------------")
@@ -390,7 +454,7 @@ def scorecard():
         print(Teams[0][i] + (30 - len(Teams[0][i])) * " " + str(Bat_Score_1[i]))
     print("-----------------------------------------")
     print("")
-    print(Names[0] + " score = " + str(total(a1)) + "/" + str(a1.count(5)) + " in " + str(len(a1)) + " balls")
+    print(Names[0] + " score = " + str(total(a1)) + "/" + str(a1.count(5)) + " in " + str(len(a1)//6) + "." + str(len(a1)%6) + " overs")
     print("")
     print("-----------------------------------------")
     print(Names[1])
@@ -399,14 +463,53 @@ def scorecard():
         print(Teams[1][i] + (30 - len(Teams[1][i])) * " " + str(Bat_Score_2[i]))
     print("-----------------------------------------")
     print("")
-    print(Names[1] + " score = " + str(total(a2)) + "/" + str(a2.count(5)) + " in " + str(len(a2)) + " balls")
+    print(Names[1] + " score = " + str(total(a2)) + "/" + str(a2.count(5)) + " in " + str(len(a2)//6) + "." + str(len(a2)%6) + " overs")
     if total(a1) > total(a2):
         print("")
         print(str(Names[0]) + " wins by " + str(total(a1) - total(a2)) + " runs")
+        print("")
+        print("Man of the Match - " + str(max_dict(D1)) + "(" + str(Names[0]) + ")")
+        d[Names[0]] = d[Names[0]] + 1
     if total(a1) < total(a2):
         print("")
         print(str(Names[1]) + " wins by " + str(w - a2.count(5)) + " wickets")
+        print("")
+        print("Man of the Match - " + str(max_dict(D2)) + "(" + str(Names[1]) + ")")
+        d[Names[1]] = d[Names[1]] + 1
     if total(a1) == total(a2):
         print("It's a Draw!!!")
+        print("")
+        print("Man of the Match - " + str(max_dict(dict(zip((max_dict(D1), max_dict(D2)), (D1[max_dict(D1)], D2[max_dict(D2)]))))))
 
-scorecard()
+
+def cricket():
+    s = is_series()
+    ty = type()
+    if s == "SINGLE" or "":
+        scorecard(ty, d)
+    if s == "SERIES":
+        n = int(input("No. of matches : "))
+        for i in range(0, n):
+            scorecard(ty, d)
+            if i < n - 1:
+                if d[names[0]] > d[names[1]]:
+                    print(names[0] + " leads " + str(n) + " match series by " + str(d[names[0]]) + " - " + str(d[names[1]]))
+                    print("")
+                if d[names[1]] > d[names[0]]:
+                    print(names[1] + " leads " + str(n) + " match series by " + str(d[names[1]]) + " - " + str(d[names[0]]))
+                    print("")
+                if d[names[0]] == d[names[1]]:
+                    print(str(n) + " match series is tied at " + str(d[names[0]]) + " - " + str(d[names[1]]))
+                    print("")
+            if i == n - 1:
+                if d[names[0]] > d[names[1]]:
+                    print(names[0] + " wins " + str(n) + " match series by " + str(d[names[0]]) + " - " + str(d[names[1]]))
+                if d[names[1]] > d[names[0]]:
+                    print(names[1] + " wins " + str(n) + " match series by " + str(d[names[1]]) + " - " + str(d[names[0]]))
+                if d[names[0]] == d[names[1]]:
+                    print(str(n) + " match series is drawn at " + str(d[names[0]]) + " - " + str(d[names[1]]))
+
+d1 = {names[0] : 0, names[1] : 0}
+
+
+cricket()
