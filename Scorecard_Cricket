@@ -139,13 +139,13 @@ NewZealandT20 = "Martin Guptill,Glenn Phillips,Kane Williamson(c),Devon Conway,J
 NewZealandODI = "Martin Guptill,Henry Nicholls,Kane Williamson(c),Ross Taylor,Tom Latham,Jimmy Neesham,Colin de Grandhomme,Matt Henry,Trent Boult,Lockie Ferguson"
 NewZealandTest = "Tom Latham,Tom Blundell,Kane Williamson(c),Ross Taylor,BJ Watling,Colin de Grandhomme,Tim Southee,Kylie Jamieson,Mitchell Santner,Trent Boult"
 AustraliaT20 = "Aaron Finch(c),David Warner,Josh Phillipe,Matthew Wade,Glenn Maxwell,Marcus Stoinis,Ashton Agar,Michael Starc,Adam Zampa,Kane Richardson"
-AustraliaODI = "Aaron Finch(c),David Warner,Steve Smith,Marnus Labuchagne,Glenn Maxwell,Marcus Stoinis,Alex Carey,Pat Cummins,Mitchell Starc,Adam Zampa,Josh Hazlewood"
+AustraliaODI = "Aaron Finch(c),David Warner,Steve Smith,Marnus Labuchagne,Glenn Maxwell,Marcus Stoinis,Alex Carey,Pat Cummins,Mitchell Starc,Adam Zampa"
 AustraliaTest = "Marcus Harris,David Warner,Marnus Labuchagne,Steve Smith,Travis Head,Matthew Wade,Tim Paine(c),Pat Cummins,Mitchell Starc,Nathan Lyon"
 India = "Rohit Sharma,KL Rahul,Virat Kohli(c),Shreyash Iyer,Rishabh Pant,Hardik Pandya,Navdeep Saini,Mohd Shami,Jaspreet Bumrah,Yuzi Chahal"
 IndiaTest = "Rohit Sharma,Shubman Gill,Cheteshwar Pujara,Virat Kohli(c),Rishabh Pant,Washington Sundar,Ravi Ashwin,Axar Patel,Mohd Siraj,Jaspreet Bumrah"
 EnglandODI = "Jason Roy,Jonny Bairstow,Joe Root,Eoin Morgan(c),Jos Butler,Sir Ben Stokes,Chris Woakes,Adil Rashid,Jofra Archer,Mark Wood"
 EnglandT20 = "Jason Roy,Jos Butler,Dawid Malan,Jonny Bairstow,Eoin Morgan,Sir Ben Stokes,Chris Woakes,Adil Rashid,Jofra Archer,Mark Wood"
-EnglandTest = "Zack Crawley,Rory Burns,Joe Root,Ben Stokes,Jos Butler,Chris Woakes,Stuart Broad,Jofra Archer,Jack Leach,James Anderson"
+EnglandTest = "Zack Crawley,Rory Burns,Joe Root,Sir Ben Stokes,Jos Butler,Chris Woakes,Stuart Broad,Jofra Archer,Jack Leach,James Anderson"
 RCB = "Devdutt Padikkal,Finn Allen,Virat Kohli,ABD,Glenn Maxwell,Mohd Azharuddin,Daniel Sams,Navdeep Saini,Mohd Siraj,Yuzi Chahal"
 MI = "QDK,Rohit Sharma,SKY,Ishan Kishan,Hardik Pandya,Keiron Pollard,Arjun Tendulkar,Rahul Chahar,Jaspreet Bumrah,Trent Boult"
 print("Pre defined Teams - New Zealand, Australia, India, England, RCB, MI.")
@@ -197,8 +197,8 @@ def team():
 te = team()
 
 def Team_array():
-    T1 = te[0].split(",")
-    T2 = te[1].split(",")
+    T1 = te[0].upper().split(",")
+    T2 = te[1].upper().split(",")
     return [T1, T2]
 
 teams = Team_array()
@@ -208,7 +208,7 @@ def lineup():
     print(names[0] + " - " + str(teams[0]))
     print(names[1] + " - " + str(teams[1]))
 
-def type():
+def types():
     n = input("T10/T20/ODI/Test/Custom : ")
     return n.upper()
 
@@ -294,7 +294,7 @@ def array_score_1(a, w):
     spl = split(a, 5)
     if a.count(5) == w:
         for i in range(0, w):
-            ar.append((str(sum_array(spl[i])),str(len(spl[i]) + 1) + ")"))
+            ar.append((str(sum_array(spl[i])),str(len(spl[i]) + 1)))
     if 0 < int(a.count(5)) < int(w):
         for i in range(0, a.count(5)):
             ar.append((str(sum_array(spl[i])), str(len(spl[i]) + 1)))
@@ -323,7 +323,7 @@ def stats_array_score(a):
     for i in range(0, len(arr)):
         if arr[i] != ('-', '-'):
             arr1.append(int(arr[i][0]))
-            arr2.append(arr[i][1])
+            arr2.append(int(arr[i][1]))
         if arr[i] == ('-', '-'):
             arr1.append(0)
             arr2.append(0)
@@ -375,6 +375,16 @@ def Test(a, w):
             w1 += 0
     return ar
 
+def remove_common(L):
+    l = L.copy()
+    L1 = []
+    for i in l:
+        if i not in L1:
+            L1.append(i)
+        if i in L1:
+            pass
+    return L1
+
 def max_dict(d):
     a = max(d.values())
     v = ""
@@ -384,8 +394,55 @@ def max_dict(d):
     return v
 
 #U = type()
+def many_zero(n):
+    L = []
+    for i in range(0, n):
+        L.append(0)
+    return L
+
+def add_dict(D1, D2):
+    D = D1
+    for i in D2.keys():
+        D[i] = D2[i]
+    return D
+
+def dict_arrange(d):
+    d1 = list(d.values())
+    d1.sort()
+    de = d1[::-1]
+    ar = []
+    for i in range(0, len(d1)):
+        for j in d:
+            if d[j] == de[i]:
+                ar.append(j)
+    return ar
+
+def runs_stats(D):
+    L = dict_arrange(D)
+    L = remove_common(L)
+    for i in range(0, len(L)):
+        print(str(i + 1) + ") " + str(L[i]) + " - " + str(D[L[i]]) + " runs")
+    print()
+
+def strike_rate(D1, D2): # D1 is runs, D2 is balls dict
+    D3 = {}
+    for i in D1:
+        if D2[i] != 0:
+            D3[i] = round((D1[i] * 100/float(D2[i])), 2)
+        if D2[i] == 0:
+            D3[i] = 0
+    return D3
+
+def strike_rate_stats(D):
+    L = dict_arrange(D)
+    L = remove_common(L)
+    for i in range(0, len(L)):
+        print(str(i + 1) + ") " + str(L[i]) + " - " + str(D[L[i]]))
+    print()
+
+D7 = dict(zip(te[0].upper().split(",") + te[1].upper().split(","), many_zero(2 * wicket)))
 d = {names[0] : 0, names[1] : 0}
-def scorecard(U, d):
+def scorecard(U, d, D4, D10):
     type = U
     w = wicket
     a3 = []
@@ -398,7 +455,7 @@ def scorecard(U, d):
         a3 = t20
     if U == "T10":
         a3 = t10
-    if U == "Custom":
+    if U == "CUSTOM":
         a3 = ODI
     b = 0
     a1 = []
@@ -435,8 +492,6 @@ def scorecard(U, d):
     Bat_Score_1 = array_score(a1, w)
     Bat_Score_2 = array_score(a2, w)
     T = toss()
-    D1 = {}
-    D2 = {}
     if T[0] == Names[0]:
         D = D
     if T[0] == Names[1]:
@@ -445,6 +500,16 @@ def scorecard(U, d):
         D = dict(zip(Names, Teams))
     D1 = dict(zip(Teams[0], stats_array_score(a1)[0]))
     D2 = dict(zip(Teams[1], stats_array_score(a2)[0]))
+    D6 = dict(zip(Teams[0], stats_array_score(a1)[1]))
+    D8 = dict(zip(Teams[1], stats_array_score(a2)[1]))
+    D9 = add_dict(D6, D8)
+    D3 = add_dict(D1, D2)
+
+    for i in D3.keys():
+        D4[i] += D3[i]
+
+    for i in D9.keys():
+        D10[i] += int(D9[i])
 
     print("")
     print("-----------------------------------------")
@@ -464,17 +529,19 @@ def scorecard(U, d):
     print("-----------------------------------------")
     print("")
     print(Names[1] + " score = " + str(total(a2)) + "/" + str(a2.count(5)) + " in " + str(len(a2)//6) + "." + str(len(a2)%6) + " overs")
+    print("")
+    print("-----------------------------------------")
     if total(a1) > total(a2):
         print("")
         print(str(Names[0]) + " wins by " + str(total(a1) - total(a2)) + " runs")
         print("")
-        print("Man of the Match - " + str(max_dict(D1)) + "(" + str(Names[0]) + ")")
+        print("Man of the Match - " + str(max_dict(D1)) + "(" + str(Names[0]) + ")" + " - " + str(D1[max_dict(D1)]) + " runs")
         d[Names[0]] = d[Names[0]] + 1
     if total(a1) < total(a2):
         print("")
         print(str(Names[1]) + " wins by " + str(w - a2.count(5)) + " wickets")
         print("")
-        print("Man of the Match - " + str(max_dict(D2)) + "(" + str(Names[1]) + ")")
+        print("Man of the Match - " + str(max_dict(D2)) + "(" + str(Names[1]) + ")" + " - " + str(D2[max_dict(D2)]) + " runs")
         d[Names[1]] = d[Names[1]] + 1
     if total(a1) == total(a2):
         print("It's a Draw!!!")
@@ -484,14 +551,17 @@ def scorecard(U, d):
 
 def cricket():
     s = is_series()
-    ty = type()
+    ty = types()
     if s == "SINGLE" or "":
-        scorecard(ty, d)
+        scorecard(ty, d, D7, D7)
     if s == "SERIES":
+        D5 = dict(zip(te[0].upper().split(",") + te[1].upper().split(","), many_zero(2 * wicket)))
+        D11 = dict(zip(te[0].upper().split(",") + te[1].upper().split(","), many_zero(2 * wicket)))
         n = int(input("No. of matches : "))
         for i in range(0, n):
-            scorecard(ty, d)
+            scorecard(ty, d, D5, D11)
             if i < n - 1:
+                print("")
                 if d[names[0]] > d[names[1]]:
                     print(names[0] + " leads " + str(n) + " match series by " + str(d[names[0]]) + " - " + str(d[names[1]]))
                     print("")
@@ -502,14 +572,32 @@ def cricket():
                     print(str(n) + " match series is tied at " + str(d[names[0]]) + " - " + str(d[names[1]]))
                     print("")
             if i == n - 1:
+                print("")
                 if d[names[0]] > d[names[1]]:
                     print(names[0] + " wins " + str(n) + " match series by " + str(d[names[0]]) + " - " + str(d[names[1]]))
                 if d[names[1]] > d[names[0]]:
                     print(names[1] + " wins " + str(n) + " match series by " + str(d[names[1]]) + " - " + str(d[names[0]]))
                 if d[names[0]] == d[names[1]]:
                     print(str(n) + " match series is drawn at " + str(d[names[0]]) + " - " + str(d[names[1]]))
-
-d1 = {names[0] : 0, names[1] : 0}
-
+                print("")
+        f = max_dict(D5)
+        k = D5[f]
+        if f in teams[0]:
+            print("Man of the Series - " + f + "(" + str(names[0]) + ")" + " - " + str(k) + " runs")
+        if f in teams[1]:
+            print("Man of the Series - " + f + "(" + str(names[1]) + ")" + " - " + str(k) + " runs")
+        s = input("Stats(Most runs/Highest strike rates)(R/S) : ").upper()
+        strikerate = strike_rate(D5, D11)
+        list1 = ["R", "S"]
+        while s in list1:
+            if s == "R":
+                print("")
+                print("Most runs - ")
+                runs_stats(D5)
+            if s == "S":
+                print("")
+                print("Highest strike rates - ")
+                strike_rate_stats(strikerate)
+            s = input("Stats(Most runs/Highest strike rates)(R/S) : ").upper()
 
 cricket()
