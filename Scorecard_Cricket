@@ -144,13 +144,17 @@ AustraliaTest = "Marcus Harris,David Warner,Marnus Labuchagne,Steve Smith,Travis
 India = "Rohit Sharma,KL Rahul,Virat Kohli(c),Shreyash Iyer,Rishabh Pant,Hardik Pandya,Navdeep Saini,Mohd Shami,Jaspreet Bumrah,Yuzi Chahal"
 IndiaTest = "Rohit Sharma,Shubman Gill,Cheteshwar Pujara,Virat Kohli(c),Rishabh Pant,Washington Sundar,Ravi Ashwin,Axar Patel,Mohd Siraj,Jaspreet Bumrah"
 EnglandODI = "Jason Roy,Jonny Bairstow,Joe Root,Eoin Morgan(c),Jos Butler,Sir Ben Stokes,Chris Woakes,Adil Rashid,Jofra Archer,Mark Wood"
-EnglandT20 = "Jason Roy,Jos Butler,Dawid Malan,Jonny Bairstow,Eoin Morgan,Sir Ben Stokes,Chris Woakes,Adil Rashid,Jofra Archer,Mark Wood"
-EnglandTest = "Zack Crawley,Rory Burns,Joe Root,Sir Ben Stokes,Jos Butler,Chris Woakes,Stuart Broad,Jofra Archer,Jack Leach,James Anderson"
+EnglandT20 = "Jason Roy,Jos Butler,Dawid Malan,Jonny Bairstow,Eoin Morgan(c),Sir Ben Stokes,Chris Jordan,Adil Rashid,Jofra Archer,Mark Wood"
+EnglandTest = "Zack Crawley,Rory Burns,Joe Root(c),Sir Ben Stokes,Jos Butler,Chris Woakes,Stuart Broad,Jofra Archer,Jack Leach,James Anderson"
 RCB = "Devdutt Padikkal,Finn Allen,Virat Kohli,ABD,Glenn Maxwell,Mohd Azharuddin,Daniel Sams,Navdeep Saini,Mohd Siraj,Yuzi Chahal"
 MI = "QDK,Rohit Sharma,SKY,Ishan Kishan,Hardik Pandya,Keiron Pollard,Arjun Tendulkar,Rahul Chahar,Jaspreet Bumrah,Trent Boult"
-print("Pre defined Teams - New Zealand, Australia, India, England, RCB, MI.")
-Teams = [NewZealandT20, NewZealandODI, NewZealandTest, AustraliaODI, AustraliaT20, AustraliaTest, India, India, IndiaTest, EnglandT20, EnglandODI, EnglandTest, RCB, MI]
-t = ["NZT20", "NZODI", "NZTEST", "AUSODI", "AUST20", "AUSTEST", "INDODI", "INDT20", "INDTEST", "ENGT20", "ENGODI", "ENGTEST", "RCB", "MI"]
+RR = "Sanju Samson,Jos Butler,Yashasvi Jaiswal,Ben Stokes,Rahul Tewatia,Riyan Parag,Chris Morris,Jofra Archer,Shreyas Gopal,Kartik Tyagi"
+SRH = "David Warner,Jonny Bairstow,Kane Williamson,Manish Pandey,Priyam Garg,Abdul Samad,Rashid Khan,Bhuvi Kumar,T Natarajan,Sandeep Sharma"
+DC = "Prithvi Shaw,Shikhar Dhawan,Steve Smith,Shreyash Iyer,Rishabh Pant,Marcus Stoinis,Ravi Ashwin,Axar Patel,Anrich Nortje,Kagiso Rabada"
+KXIP = "KL Rahul,Chris Gayle,Mayank Agarwal,Dawid Malan,Nicholas Pooran,Shah Rukh Khan,Chris Jordan,Ravi Bishnoi,Murugan Ashwin,Harpreet Brar"
+print("Pre defined Teams - New Zealand, Australia, India, England, RCB, MI, RR, SRH, DC, KXIP.")
+Teams = [NewZealandT20, NewZealandODI, NewZealandTest, AustraliaODI, AustraliaT20, AustraliaTest, India, India, IndiaTest, EnglandT20, EnglandODI, EnglandTest, RCB, MI, RR, SRH, DC, KXIP]
+t = ["NZT20", "NZODI", "NZTEST", "AUSODI", "AUST20", "AUSTEST", "INDODI", "INDT20", "INDTEST", "ENGT20", "ENGODI", "ENGTEST", "RCB", "MI", "RR", "SRH", "DC", "KXIP"]
 Te = input("Pre defined or Custom?(P/C) : ").upper()
 
 def is_series():
@@ -400,8 +404,14 @@ def many_zero(n):
         L.append(0)
     return L
 
+def cut_list(L, n):
+    L1 = []
+    for i in range(0, n):
+        L1.append(L[i])
+    return L1
+
 def add_dict(D1, D2):
-    D = D1
+    D = D1.copy()
     for i in D2.keys():
         D[i] = D2[i]
     return D
@@ -424,14 +434,28 @@ def runs_stats(D):
         print(str(i + 1) + ") " + str(L[i]) + " - " + str(D[L[i]]) + " runs")
     print()
 
+def high_score_stats(D):
+    L = dict_arrange(D)
+    L = remove_common(L)
+    L = cut_list(L, 10)
+    for i in range(0, len(L)):
+        print(str(i + 1) + ") " + str(L[i]) + " - " + str(D[L[i]]))
+    print()
+
 def strike_rate(D1, D2): # D1 is runs, D2 is balls dict
     D3 = {}
     for i in D1:
-        if D2[i] != 0:
+        if D2[i] >= 20:
             D3[i] = round((D1[i] * 100/float(D2[i])), 2)
-        if D2[i] == 0:
-            D3[i] = 0
+        if D2[i] < 20:
+            pass
     return D3
+
+def addendum(L, s):
+    L1 = []
+    for i in range(0, len(L)):
+        L1.append(L[i] + str(s))
+    return L1
 
 def strike_rate_stats(D):
     L = dict_arrange(D)
@@ -442,7 +466,7 @@ def strike_rate_stats(D):
 
 D7 = dict(zip(te[0].upper().split(",") + te[1].upper().split(","), many_zero(2 * wicket)))
 d = {names[0] : 0, names[1] : 0}
-def scorecard(U, d, D4, D10):
+def scorecard(U, d, D4, D10, D15, k):
     type = U
     w = wicket
     a3 = []
@@ -504,6 +528,11 @@ def scorecard(U, d, D4, D10):
     D8 = dict(zip(Teams[1], stats_array_score(a2)[1]))
     D9 = add_dict(D6, D8)
     D3 = add_dict(D1, D2)
+    D12 = dict(zip(addendum(Teams[0], " - Match " + str(k + 1)), stats_array_score(a1)[0]))
+    D13 = dict(zip(addendum(Teams[1], " - Match " + str(k + 1)), stats_array_score(a2)[0]))
+    D14 = add_dict(D12, D13)
+    for i in D14:
+        D15[i] = D14[i]
 
     for i in D3.keys():
         D4[i] += D3[i]
@@ -548,18 +577,19 @@ def scorecard(U, d, D4, D10):
         print("")
         print("Man of the Match - " + str(max_dict(dict(zip((max_dict(D1), max_dict(D2)), (D1[max_dict(D1)], D2[max_dict(D2)]))))))
 
+D16 = {}
 
 def cricket():
     s = is_series()
     ty = types()
     if s == "SINGLE" or "":
-        scorecard(ty, d, D7, D7)
+        scorecard(ty, d, D7, D7, D16, 0)
     if s == "SERIES":
         D5 = dict(zip(te[0].upper().split(",") + te[1].upper().split(","), many_zero(2 * wicket)))
         D11 = dict(zip(te[0].upper().split(",") + te[1].upper().split(","), many_zero(2 * wicket)))
         n = int(input("No. of matches : "))
         for i in range(0, n):
-            scorecard(ty, d, D5, D11)
+            scorecard(ty, d, D5, D11, D16, i)
             if i < n - 1:
                 print("")
                 if d[names[0]] > d[names[1]]:
@@ -586,18 +616,24 @@ def cricket():
             print("Man of the Series - " + f + "(" + str(names[0]) + ")" + " - " + str(k) + " runs")
         if f in teams[1]:
             print("Man of the Series - " + f + "(" + str(names[1]) + ")" + " - " + str(k) + " runs")
+        print("")
         s = input("Stats(Most runs/Highest strike rates)(R/S) : ").upper()
         strikerate = strike_rate(D5, D11)
-        list1 = ["R", "S"]
-        while s in list1:
+        list1 = [""]
+        while s not in list1:
             if s == "R":
                 print("")
-                print("Most runs - ")
+                print("Most Runs - ")
                 runs_stats(D5)
             if s == "S":
                 print("")
-                print("Highest strike rates - ")
+                print("Highest Strike Rates - ")
                 strike_rate_stats(strikerate)
-            s = input("Stats(Most runs/Highest strike rates)(R/S) : ").upper()
+            if s == "H":
+                print("")
+                print("Highest Individual Scores - ")
+                high_score_stats(D16)
+            s = input("Stats(Most Runs/Highest Strike rates/Highest Individual Scores)(R/S/H) : ").upper()
+
 
 cricket()
