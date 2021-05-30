@@ -188,7 +188,7 @@ MI = "QDK,Rohit Sharma,SKY,Ishan Kishan,Hardik Pandya,Keiron Pollard,Jimmy Neesh
 RR = "Sanju Samson,Jos Butler,Yashasvi Jaiswal,Ben Stokes,Rahul Tewatia,Riyan Parag,Chris Morris,Jofra Archer,Shreyas Gopal,Kartik Tyagi,Chetan Sakaria"
 SRH = "David Warner,Jonny Bairstow,Kane Williamson,Manish Pandey,Priyam Garg,Abdul Samad,Kedar Jadhav,Rashid Khan,Bhuvi Kumar,T Natarajan,Sandeep Sharma"
 DC = "Prithvi Shaw,Shikhar Dhawan,Ajinkya Rahane,Shreyash Iyer,Rishabh Pant,Marcus Stoinis,Chris Woakes,Ravi Ashwin,Axar Patel,Anrich Nortje,Kagiso Rabada"
-KXIP = "KL Rahul,Chris Gayle,Mayank Agarwal,Nicholas Pooran,Shah Rukh Khan,Chris Jordan,Ravi Bishnoi,Murugan Ashwin,Harpreet Brar,Jhye Richardson,Mohd Shami"
+KXIP = "KL Rahul,Chris Gayle,Mayank Agarwal,Nicholas Pooran,Shah Rukh Khan,Harpreet Brar,Chris Jordan,Ravi Bishnoi,Murugan Ashwin,Jhye Richardson,Mohd Shami"
 PeanutButter = "Peanut Butter(c),Peanut Sandwich,Peanut Pancake,Peanut Burger,Peanut Lasagne,Peanut Colada,Sergeant Peanut,Peanut Calculus,Square Peanut,Peanut Biryani,Peanut Rice"
 DahliaXI = "Viral C(c),Harsha V,Akshit S,Ayush S,Bunny,Joshua L,Nikhil G,Anchit K,Devajya K,Rishit,Neil S"
 print("Pre defined Teams - New Zealand, Australia, India, England, South Africa(SA), RCB, MI, RR, SRH, DC, KXIP, PeanutButter(PB), DahliaXI")
@@ -337,7 +337,7 @@ def split_1(a, n):
         if a[0] == n:
             ar.append([])
             for i in range(0, len(ar1) - 1):
-                ar.append(a[ar1[i] + 1 : ar1[i + 1]])
+                ar.append(a[ar1[i] + 1 : ar1[i + 1] + 1])
         if a[-1] != n:
             ar.append(a[ar1[-1] + 1 : len(a) + 1])
     if len(ar) < wickets(te[0]):
@@ -361,13 +361,13 @@ def empty_arrays(n):
     return a
 
 
-a2 = ["One", "Two", "Three", "Four", "Five", "Six"]
-a1 = [5, 1, 4, 3, 2, 4, 5, 3, 4, 6]
 
-def partnerships(a, a1, r): # a is array of players, a1 is array of balls_output, r is Runs/Balls array(how he scored runs)
+def partnerships(a, a11, r): # a is array of players, a11 is array of balls_output, r is Runs/Balls array(how he scored runs)
     di = dict(zip(a, r))
-    f = add_array(split_1(a1, 5), empty_arrays(len(a) - 1 - a1.count(5)))
+    f = add_array(split_1(a11, 5), empty_arrays(len(a) - 1 - a11.count(5)))
     Opening_Partnership = partnership([a[0], a[1]], f[0], [[], []])
+    if a11[0] == 5:
+        Opening_Partnership = {a[0] : ['X'], a[1] : []}
     di = append_dict(di, Opening_Partnership)
     for i in range(2, len(a)):
         p1 = a[i]
@@ -630,7 +630,7 @@ def strike_rate_stats(D):
 D7 = dict(zip(te[0].upper().split(",") + te[1].upper().split(","), many_zero(2 * wicket)))
 d = {names[0] : 0, names[1] : 0}
 def scorecard(U, d, D4, D10, D15, k):
-    type = U
+#    type = U
     w = wicket
     a3 = []
     a4 = []
@@ -674,6 +674,9 @@ def scorecard(U, d, D4, D10, D15, k):
             a2 = balls_array(b, w, t20_target_2)
         else:
             a2 = balls_array(b, w, t20)
+    r = []
+    for i in range(0, w + 1):
+        r.append([])
     Names = names
     Teams = teams
     D = dict(zip(Names, Teams))
@@ -687,6 +690,19 @@ def scorecard(U, d, D4, D10, D15, k):
         Names = Names[::-1]
         Teams = Teams[::-1]
         D = dict(zip(Names, Teams))
+    P1 = partnerships(Teams[0], a1, r)
+    r = []
+    for i in range(0, w + 1):
+        r.append([])
+    P2 = partnerships(Teams[1], a2, r)
+    Not_Outs_1 = []
+    Not_Outs_2 = []
+    for i in P1.keys():
+        if P1[i] != [] and str(P1[i][-1]) != 'X':
+            Not_Outs_1.append(i)
+    for i in P2.keys():
+        if P2[i] != [] and str(P2[i][-1]) != 'X':
+            Not_Outs_2.append(i)
 #    score_players(player_list, ball_array, wickets) - returns player_name : [run, ball]
     Player_Score_Dict_1 = score_players(Teams[0], a1, w)
     Player_Score_Dict_2 = score_players(Teams[1], a2, w)
@@ -725,8 +741,10 @@ def scorecard(U, d, D4, D10, D15, k):
     print("-----------------------------------------")
     for i in range(0, len(Teams[0])):
         s = str(Runs_array_1[i]) + "(" + str(Balls_array_1[i]) + ")"
-        if s != "0(0)":
+        if s != "0(0)" and Teams[0][i] not in Not_Outs_1:
             print(Teams[0][i] + (30 - len(Teams[0][i])) * " " + s)
+        if s != "0(0)" and Teams[0][i] in Not_Outs_1:
+            print(Teams[0][i] + "*" + (29 - len(Teams[0][i])) * " " + s)
         if s == "0(0)":
             print(Teams[0][i] + (30 - len(Teams[0][i])) * " " + "-")
     print("-----------------------------------------")
@@ -747,8 +765,10 @@ def scorecard(U, d, D4, D10, D15, k):
     for i in range(0, len(Teams[1])):
         if p.upper() == "Y":
             s = str(Runs_array_2[i]) + "(" + str(Balls_array_2[i]) + ")"
-            if s != "0(0)":
+            if s != "0(0)" and Teams[1][i] not in Not_Outs_2:
                 print(Teams[1][i] + (30 - len(Teams[1][i])) * " " + s)
+            if s != "0(0)" and Teams[1][i] in Not_Outs_2:
+                print(Teams[1][i] + "*" + (29 - len(Teams[1][i])) * " " + s)
             if s == "0(0)":
                 print(Teams[1][i] + (30 - len(Teams[1][i])) * " " + "-")
     print("-----------------------------------------")
@@ -838,4 +858,4 @@ def cricket():
             s = input("Stats(Most Runs/Highest Strike rates/Highest Individual Scores)(R/S/H) : ").upper()
 
 
-cricket()
+cricket(
