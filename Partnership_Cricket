@@ -172,7 +172,7 @@ def sum_int_without_5(a):
 
 NewZealandT20 = "Martin Guptill,Glenn Phillips,Kane Williamson(c),Devon Conway,Jimmy Neesham,Kylie Jamieson,Michael Santner,Tim Southee,Lockie Ferguson,Ish Sodhi,Trent Boult"
 NewZealandODI = "Martin Guptill,Henry Nicholls,Kane Williamson(c),Ross Taylor,Tom Latham,Jimmy Neesham,Colin de Grandhomme,Michael Santner,Matt Henry,Trent Boult,Lockie Ferguson"
-NewZealandTest = "Tom Latham,Tom Blundell,Kane Williamson(c),Ross Taylor,Henry Nicholls,BJ Watling,Colin de Grandhomme,Tim Southee,Kylie Jamieson,Mitchell Santner,Trent Boult"
+NewZealandTest = "Tom Latham,Devon Conway,Kane Williamson(c),Ross Taylor,Henry Nicholls,BJ Watling,Colin de Grandhomme,Tim Southee,Kylie Jamieson,Mitchell Santner,Trent Boult"
 AustraliaT20 = "Aaron Finch(c),David Warner,Josh Phillipe,Matthew Wade,Glenn Maxwell,Marcus Stoinis,Daniel Sams,Ashton Agar,Michael Starc,Adam Zampa,Kane Richardson"
 AustraliaODI = "Aaron Finch(c),David Warner,Steve Smith,Marnus Labuchagne,Glenn Maxwell,Alex Carey,Marcus Stoinis,Pat Cummins,Mitchell Starc,Adam Zampa,Jason Behrendoff"
 AustraliaTest = "Marcus Harris,David Warner,Marnus Labuchagne,Steve Smith,Travis Head,Matthew Wade,Tim Paine(c),Pat Cummins,Mitchell Starc,Nathan Lyon,Josh Hazlewood"
@@ -627,7 +627,7 @@ def strike_rate_stats(D):
         print(str(i + 1) + ") " + str(L[i]) + " - " + str(D[L[i]]))
     print()
 
-D7 = dict(zip(te[0].upper().split(",") + te[1].upper().split(","), many_zero(2 * wicket)))
+D7 = dict(zip(te[0].upper().split(",") + te[1].upper().split(","), many_zero(2 * wicket + 2)))
 d = {names[0] : 0, names[1] : 0}
 def scorecard(U, d, D4, D10, D15, k):
 #    type = U
@@ -726,14 +726,15 @@ def scorecard(U, d, D4, D10, D15, k):
     D12 = dict(zip(addendum(Teams[0], " - Match " + str(k + 1)), Runs_array_1))
     D13 = dict(zip(addendum(Teams[1], " - Match " + str(k + 1)), Runs_array_2))
     D14 = add_dict(D12, D13)
- #   for i in D14:
-#        D15[i] = D14[i]
+    for i in D14:
+        D15[i] = D14[i]
 
-#    for i in D3:
- #       D4[i] = int(D4[i]) + int(D3[i])
+    for i in D3.keys():
+        D4[i] = int(D4[i]) + int(D3[i])
+    
 
-#    for i in D9:
-  #      D10[i] += int(D9[i])
+    for i in D9:
+        D10[i] += int(D9[i])
 
     print("")
     print("-----------------------------------------")
@@ -807,8 +808,8 @@ def cricket():
         scorecard(ty, d, D7, D7, D16, 0)
 
     else:
-        D5 = dict(zip(te[0].upper().split(",") + te[1].upper().split(","), many_zero(2 * wicket)))
-        D11 = dict(zip(te[0].upper().split(",") + te[1].upper().split(","), many_zero(2 * wicket)))
+        D5 = dict(zip(te[0].upper().split(",") + te[1].upper().split(","), many_zero(2 * wicket + 2)))
+        D11 = dict(zip(te[0].upper().split(",") + te[1].upper().split(","), many_zero(2 * wicket + 2)))
         n = int(input("No. of matches : "))
         for i in range(0, n):
             scorecard(ty, d, D5, D11, D16, i)
@@ -858,4 +859,4 @@ def cricket():
             s = input("Stats(Most Runs/Highest Strike rates/Highest Individual Scores)(R/S/H) : ").upper()
 
 
-cricket(
+cricket()
