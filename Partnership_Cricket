@@ -17,35 +17,35 @@ for i in range(0, 4): #5
 Tests.append(6)
 
 ODI = []
-for i in range(0, 60):
+for i in range(0, 65):
     ODI.append(0)
-for i in range(0, 30):
+for i in range(0, 35):
     ODI.append(1)
-for i in range(0, 16):
+for i in range(0, 17):
     ODI.append(2)
 for i in range(0, 5):
     ODI.append(3)
-for i in range(0, 8):
+for i in range(0, 7):
     ODI.append(4)
-for i in range(0, 4):
+for i in range(0, 3):
     ODI.append(5)
-for i in range(0, 4):
+for i in range(0, 3):
     ODI.append(6)
 
 t20 = []
 for i in range(0, 20):
     t20.append(0)
-for i in range(0, 25):
+for i in range(0, 28):
     t20.append(1)
-for i in range(0, 15):
+for i in range(0, 16):
     t20.append(2)
-for i in range(0, 4):
+for i in range(0, 3):
     t20.append(3)
 for i in range(0, 7):
     t20.append(4)
 for i in range(0, 5):
     t20.append(5)
-for i in range(0, 5):
+for i in range(0, 4):
     t20.append(6)
 
 
@@ -182,15 +182,15 @@ EnglandODI = "Jason Roy,Jonny Bairstow,Joe Root,Eoin Morgan(c),Jos Butler,Sir Be
 EnglandT20 = "Jason Roy,Jos Butler,Dawid Malan,Jonny Bairstow,Eoin Morgan(c),Sir Ben Stokes,Sam Curran,Chris Jordan,Adil Rashid,Jofra Archer,Mark Wood"
 EnglandTest = "Zack Crawley,Rory Burns,Joe Root(c),Sir Ben Stokes,Jos Butler,Chris Woakes,Sam Curran,Stuart Broad,Jofra Archer,Jack Leach,James Anderson"
 SouthAfricaODI = "Hashim Amla,QDK,Faf Du Plessis,ABD(c),Rilee Rossouw,David Miller,JP Duminy,Kagiso Rabada,Dale Steyn,Inran Tahir,Morne Morkel"
-SouthAfricaTEST = "Graeme Smith,Hashim Amla,Jacques Kallis,Faf du Plessis,ABD,JP Duminy,Mark Boucher,Morne Morkel,Paul Harris,Dale Steyn,Makhaya Ntini"
+SouthAfricaTEST = "Graeme Smith(c),Hashim Amla,Jacques Kallis,Faf du Plessis,ABD,JP Duminy,Mark Boucher,Morne Morkel,Paul Harris,Dale Steyn,Makhaya Ntini"
 RCB = "Devdutt Padikkal,Finn Allen,Virat Kohli,ABD,Glenn Maxwell,Mohd Azharuddin,Kyle Jamieson,Shahbaz Ahmed,Harshal Patel,Mohd Siraj,Yuzi Chahal"
 MI = "QDK,Rohit Sharma,SKY,Ishan Kishan,Hardik Pandya,Keiron Pollard,Jimmy Neesham,Krunal Pandya,Rahul Chahar,Jaspreet Bumrah,Trent Boult"
 RR = "Sanju Samson,Jos Butler,Yashasvi Jaiswal,Ben Stokes,Rahul Tewatia,Riyan Parag,Chris Morris,Jofra Archer,Shreyas Gopal,Kartik Tyagi,Chetan Sakaria"
 SRH = "David Warner,Jonny Bairstow,Kane Williamson,Manish Pandey,Priyam Garg,Abdul Samad,Kedar Jadhav,Rashid Khan,Bhuvi Kumar,T Natarajan,Sandeep Sharma"
 DC = "Prithvi Shaw,Shikhar Dhawan,Ajinkya Rahane,Shreyash Iyer,Rishabh Pant,Marcus Stoinis,Chris Woakes,Ravi Ashwin,Axar Patel,Anrich Nortje,Kagiso Rabada"
-KXIP = "KL Rahul,Chris Gayle,Mayank Agarwal,Nicholas Pooran,Shah Rukh Khan,Harpreet Brar,Chris Jordan,Ravi Bishnoi,Murugan Ashwin,Jhye Richardson,Mohd Shami"
+KXIP = "KL Rahul,Chris Gayle,Mayank Agarwal,Nicholas Pooran,Shah Rukh Khan,Deepak Hooda,Chris Jordan,Ravi Bishnoi,Murugan Ashwin,Jhye Richardson,Mohd Shami"
 PeanutButter = "Peanut Butter(c),Peanut Sandwich,Peanut Pancake,Peanut Burger,Peanut Lasagne,Peanut Colada,Sergeant Peanut,Peanut Calculus,Square Peanut,Peanut Biryani,Peanut Rice"
-DahliaXI = "Viral C(c),Harsha V,Akshit S,Ayush S,Bunny,Joshua L,Nikhil G,Anchit K,Devajya K,Rishit,Neil S"
+DahliaXI = "Viral C(c),Harsha V,Akshit S,Ayush S,Bunny,Joshua L,Nikhil G,Anchit K,Devajya K,Aryan,Rishit"
 print("Pre defined Teams - New Zealand, Australia, India, England, South Africa(SA), RCB, MI, RR, SRH, DC, KXIP, PeanutButter(PB), DahliaXI")
 Teams = [NewZealandT20, NewZealandODI, NewZealandTest, AustraliaODI, AustraliaT20, AustraliaTest, India, India, IndiaTest, EnglandT20, EnglandODI, EnglandTest, SouthAfricaODI, SouthAfricaTEST, RCB, MI, RR, SRH, DC, KXIP, PeanutButter, DahliaXI]
 t = ["NZT20", "NZODI", "NZTEST", "AUSODI", "AUST20", "AUSTEST", "INDODI", "INDT20", "INDTEST", "ENGT20", "ENGODI", "ENGTEST", "SAODI", "SATEST", "RCB", "MI", "RR", "SRH", "DC", "KXIP", "PB", "DAHLIAXI"]
@@ -328,7 +328,7 @@ def split_1(a, n):
     ar = []
     ar1 = indexes(a, n)
     if len(ar1) == 0:
-        ar = a
+        ar.append(a)
     elif len(ar1) > 0:
         if a[0] != n:
             ar.append(a[:ar1[0] + 1])
@@ -361,8 +361,8 @@ def empty_arrays(n):
     return a
 
 
-
-def partnerships(a, a11, r): # a is array of players, a11 is array of balls_output, r is Runs/Balls array(how he scored runs)
+# a is array of players, a11 is array of balls_output, r is Runs/Balls array
+def partnerships(a, a11, r):
     di = dict(zip(a, r))
     f = add_array(split_1(a11, 5), empty_arrays(len(a) - 1 - a11.count(5)))
     Opening_Partnership = partnership([a[0], a[1]], f[0], [[], []])
@@ -600,7 +600,7 @@ def runs_stats(D):
 def high_score_stats(D):
     L = dict_arrange(D)
     L = remove_common(L)
-    L = cut_list(L, 10)
+    L = cut_list(L, 15)
     for i in range(0, len(L)):
         print(str(i + 1) + ") " + str(L[i]) + " - " + str(D[L[i]]))
     print()
@@ -629,7 +629,7 @@ def strike_rate_stats(D):
 
 D7 = dict(zip(te[0].upper().split(",") + te[1].upper().split(","), many_zero(2 * wicket + 2)))
 d = {names[0] : 0, names[1] : 0}
-def scorecard(U, d, D4, D10, D15, k):
+def scorecard(b, U, d, D4, D10, D15, k):
 #    type = U
     w = wicket
     a3 = []
@@ -644,11 +644,11 @@ def scorecard(U, d, D4, D10, D15, k):
         a3 = t10
     if U == "CUSTOM":
         a3 = ODI
-    b = 0
+#    b = 0
     a1 = []
     a2 = []
     if U != "TEST" and U != "ODI" and U != "T20":
-        b = balls(U)
+#        b = balls(U)
         a1 = balls_array(b, w, a3)
         a2 = balls_array(b, w, a3)
     if U == "TEST":
@@ -657,9 +657,9 @@ def scorecard(U, d, D4, D10, D15, k):
     if U == "ODI":
         b = 300
         a1 = balls_array(b, w, a3)
-        if total(a1) > 310:
+        if total(a1) > 300:
             a2 = balls_array(b, w, ODI_target)
-        if total(a1) < 230:
+        if total(a1) < 235:
             a2 = balls_array(b, w, ODI_target_2)
         else:
             a2 = balls_array(b, w, a3)
@@ -670,7 +670,7 @@ def scorecard(U, d, D4, D10, D15, k):
             a2 = balls_array(b, w, t20_target)
         if total(a1) >= 200:
             a2 = balls_array(b, w, t20_target_extreme)
-        if total(a1) <= 140:
+        if total(a1) <= 135:
             a2 = balls_array(b, w, t20_target_2)
         else:
             a2 = balls_array(b, w, t20)
@@ -731,7 +731,7 @@ def scorecard(U, d, D4, D10, D15, k):
 
     for i in D3.keys():
         D4[i] = int(D4[i]) + int(D3[i])
-    
+
 
     for i in D9:
         D10[i] += int(D9[i])
@@ -804,15 +804,16 @@ D16 = {}
 def cricket():
     s = is_series()
     ty = types()
+    b = balls(ty)
     if s == "SINGLE" or "":
-        scorecard(ty, d, D7, D7, D16, 0)
+        scorecard(b, ty, d, D7, D7, D16, 0)
 
     else:
         D5 = dict(zip(te[0].upper().split(",") + te[1].upper().split(","), many_zero(2 * wicket + 2)))
         D11 = dict(zip(te[0].upper().split(",") + te[1].upper().split(","), many_zero(2 * wicket + 2)))
         n = int(input("No. of matches : "))
         for i in range(0, n):
-            scorecard(ty, d, D5, D11, D16, i)
+            scorecard(b, ty, d, D5, D11, D16, i)
             if i < n - 1:
                 print("")
                 if d[names[0]] > d[names[1]]:
@@ -840,7 +841,7 @@ def cricket():
         if f in teams[1]:
             print("Man of the Series - " + f + "(" + str(names[1]) + ")" + " - " + str(k) + " runs")
         print("")
-        s = input("Stats(Most Runs/Highest Strike rates/Highest Individual Scores)(R/S/H) : ").upper()
+        s = input("Stats(Most Runs/Highest Strike rates/Highest Individual Scores/All)(R/S/H/A) : ").upper()
         strikerate = strike_rate(D5, D11)
         list1 = [""]
         while s not in list1:
@@ -856,7 +857,18 @@ def cricket():
                 print("")
                 print("Highest Individual Scores - ")
                 high_score_stats(D16)
-            s = input("Stats(Most Runs/Highest Strike rates/Highest Individual Scores)(R/S/H) : ").upper()
+            if s == "A":
+
+                print("Most Runs - ")
+                runs_stats(D5)
+
+                print("Highest Individual Scores - ")
+                high_score_stats(D16)
+
+                print("Highest Strike Rates - ")
+                strike_rate_stats(strikerate)
+                break
+            s = input("Stats(Most Runs/Highest Strike rates/Highest Individual Scores/All)(R/S/H/A) : ").upper()
 
 
 cricket()
